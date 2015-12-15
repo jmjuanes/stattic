@@ -2,7 +2,7 @@
   "name": "stattic",
   "version": "0.1.0",
   "description": "Ridiculous simple script for serving static files.",
-  "keywords": ["http", "assets", "server"],
+  "keywords": ["http", "assets", "server", "static", "files"],
   "author": "Josemi Juanes <josemijuanes@gmail.com>",
   "main": "./stattic.js",
   "repository": { "type": "git", "url": "git://github.com/jmjuanes/stattic.git" },
