@@ -28,6 +28,9 @@ server._static = '';
 //Set the server port
 server._port = 5000;
 
+//Set the cors
+server._cors = true;
+
 //Set the server error 404 message
 server._error = '<h1>Not found...</h1>';
 
@@ -45,6 +48,9 @@ server.set = function(key, value)
 
   //Check for port
   else if(key === 'port'){ server._port = parseInt(value); }
+
+  //Check for Cross Origin
+  else if(key === 'cors'){ server._cors = value; }
 
   //Default
   else { console.warn('Unknown key "' + key + '" used in set method.'); }
@@ -76,6 +82,19 @@ server.run = function()
 //Serve the static files
 server._Server = function(req, res)
 {
+  //Set the CORS
+  if(server._cors === true)
+  {
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  }
+
   //Get the real path to the file
   var url = path.join(server._static, req.url);
 
