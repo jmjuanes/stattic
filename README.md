@@ -40,6 +40,7 @@ Use this method for set the settings of your server. The following table lists t
 |-----|-------------|------|
 | static | Sets the path of your static files folder. | String |
 | port | Sets the port of your server. Default is 5000. | Integer |
+| cors | Enable cross-origin resource sharing (CORS). Default is `true`. | Boolean | 
 
 
 #### stattic.run()
