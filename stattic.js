@@ -117,7 +117,7 @@ server._Server = function(req, res)
     else
     {
       //Get the mime type for the file
-      var mime = server._mime[ext];
+      var mime = server._mime[url.ext];
     }
 
     //Write header
