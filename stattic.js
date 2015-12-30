@@ -2,6 +2,7 @@
 var fs = require('fs');
 var path = require('path');
 var http = require('http');
+var ParseUrl = require('stattic-parseurl');
 
 //Function for check if file exists
 function fileExists(filePath)
@@ -98,17 +99,17 @@ server._Server = function(req, res)
   //Get the real path to the file
   var url = path.join(server._static, req.url);
 
-  //Get the file extension and remove the first '.'
-  var ext = path.extname(req.url).replace('.', '');
+  //Parse the url
+  url = ParseUrl(url);
 
   //Time for make the request
   var time = Date.now();
 
   //Check if file exists
-  if(fileExists(url) === true)
+  if(fileExists(url.path) === true)
   {
     //Get the mime type
-    if(typeof server._mime[ext] === 'undefined')
+    if(typeof server._mime[url.ext] === 'undefined')
     {
       //Set the default mime value
       var mime = 'text/plain';
@@ -123,7 +124,7 @@ server._Server = function(req, res)
   	res.writeHead(200, {"Content-Type": mime});
 
     //Get the file content
-    var cont = fs.readFileSync(url, 'utf-8');
+    var cont = fs.readFileSync(url.path, 'utf-8');
 
     //Show the file content
     res.end(cont);
