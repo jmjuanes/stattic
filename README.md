@@ -36,11 +36,11 @@ stattic.run();
 
 Use this method for set the settings of your server. The following table lists the available `key` settings:
 
-| key | Description | Type |
-|-----|-------------|------|
-| static | Sets the path of your static files folder. | String |
-| port | Sets the port of your server. Default is 5000. | Integer |
-| cors | Enable cross-origin resource sharing (CORS). Default is `true`. | Boolean | 
+| key | Description | Type | Default value |
+|-----|-------------|------|---------------|
+| static | Sets the path of your static files folder. | String | |
+| port | Sets the port of your server. | Integer | `5000` |
+| cors | Enable cross-origin resource sharing (CORS). | Boolean | `true` |
 
 
 #### stattic.run()
