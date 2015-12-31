@@ -2,6 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/stattic.svg?style=flat-square)](https://www.npmjs.com/package/stattic)
 [![npm](https://img.shields.io/npm/dt/stattic.svg?style=flat-square)](https://www.npmjs.com/package/stattic)
+[![Dependency Status](https://david-dm.org/jmjuanes/stattic.svg?style=flat-square)](https://david-dm.org/jmjuanes/stattic)
 
 Ridiculous simple script for serving static files using `http` module.
 
@@ -32,6 +33,8 @@ stattic.set('port', 5000);
 stattic.run();
 ```
 
+## API
+
 #### stattic.set(key, value)
 
 Use this method for set the settings of your server. The following table lists the available `key` settings:
@@ -46,3 +49,8 @@ Use this method for set the settings of your server. The following table lists t
 #### stattic.run()
 
 Starts the server.
+
+
+## Contribute
+
+Pull requests are always welcome :)
