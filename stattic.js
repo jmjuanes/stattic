@@ -2,23 +2,10 @@
 var fs = require('fs');
 var path = require('path');
 var http = require('http');
-var ParseUrl = require('stattic-parseurl');
 
-//Function for check if file exists
-function fileExists(filePath)
-{
-  //Try open the file
-  try
-  {
-    //Check if is a file and return
-    return fs.statSync(filePath).isFile();
-  }
-  catch(err)
-  {
-    //Return file doesnt exists
-    return false;
-  }
-}
+//Import stattic functions
+var parseUrl = require('stattic-parseurl');
+var pStat = require('stattic-pstat');
 
 //Create the server object
 var server = {};
@@ -54,7 +41,7 @@ server.set = function(key, value)
   else if(key === 'cors'){ server._cors = value; }
 
   //Default
-  else { console.warn('Unknown key "' + key + '" used in set method.'); }
+  else { console.warn('Stattic Error: Unknown key "' + key + '" used in set method.'); }
 };
 
 //Create the server
@@ -64,7 +51,7 @@ server.run = function()
   if(server._static === '')
   {
     //Show error
-    console.error('Error on Statty: no statics folder selected.');
+    console.error('Stattic Error: no statics folder selected.');
 
     //Exit
     return;
@@ -73,11 +60,16 @@ server.run = function()
   //Initialize the server
   server._http = http.createServer(server._Server);
 
-  //Create the console log success
-  var su = 'Static files listening on: http://localhost:' + server._port;
-
   //Start server
-  server._http.listen(server._port, function(){ console.log(su); console.log(''); });
+  server._http.listen(server._port, function(){
+
+    //Show the console log success
+    console.log('');
+    console.log('Static files listening on: http://localhost:' + server._port;);
+    console.log('');
+
+  });
+
 };
 
 //Serve the static files
@@ -96,17 +88,20 @@ server._Server = function(req, res)
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   }
 
+  //Initialize the http code
+  var httpc = 200;
+
   //Get the real path to the file
   var url = path.join(server._static, req.url);
 
   //Parse the url
-  url = ParseUrl(url);
+  url = parseUrl(url);
 
   //Time for make the request
   var time = Date.now();
 
   //Check if file exists
-  if(fileExists(url.path) === true)
+  if(pStat.isFile(url.path) === true)
   {
     //Get the mime type
     if(typeof server._mime[url.ext] === 'undefined')
@@ -124,13 +119,10 @@ server._Server = function(req, res)
   	res.writeHead(200, {"Content-Type": mime});
 
     //Get the file content
-    var cont = fs.readFileSync(url.path, 'utf-8');
+    var cont = fs.readFileSync(url.path);
 
     //Show the file content
     res.end(cont);
-
-    //Save the http code
-    var httpc = 200;
   }
   else
   {
@@ -140,8 +132,8 @@ server._Server = function(req, res)
     //Show the error message
     res.end(server._error);
 
-    //Save the http code
-    var httpc = 404;
+    //Replace the http code
+    httpc = 404;
   }
 
   //Count the end time
