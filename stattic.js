@@ -65,7 +65,10 @@ server.run = function()
 
     //Show the console log success
     console.log('');
-    console.log('Static files listening on: http://localhost:' + server._port;);
+    console.log('Welcome to Stattic');
+    console.log('Visit us: http://statticjs.github.io');
+    console.log('');
+    console.log('Static files listening on: http://localhost:' + server._port);
     console.log('');
 
   });
