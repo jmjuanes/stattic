@@ -6,6 +6,7 @@ var http = require('http');
 //Import stattic functions
 var parseUrl = require('stattic-parseurl');
 var pStat = require('stattic-pstat');
+var getMime = require('stattic-mime');
 
 //Create the server object
 var server = {};
@@ -24,9 +25,6 @@ server._error = '<h1>Not found...</h1>';
 
 //Initialize the http client
 server._http = null;
-
-//Get the mime types
-server._mime = require('./utils/mime.json');
 
 //Set the default vars
 server.set = function(key, value)
@@ -57,6 +55,9 @@ server.run = function()
     return;
   }
 
+  //Fix the stattic files folder
+  server._static = path.resolve(__dirname, server._static);
+
   //Initialize the server
   server._http = http.createServer(server._Server);
 
@@ -68,7 +69,8 @@ server.run = function()
     console.log('Welcome to Stattic');
     console.log('Visit us: http://statticjs.github.io');
     console.log('');
-    console.log('Static files listening on: http://localhost:' + server._port);
+    console.log('Static server listening on: http://localhost:' + server._port);
+    console.log('Static files listening from: ' + server._static);
     console.log('');
 
   });
@@ -106,17 +108,8 @@ server._Server = function(req, res)
   //Check if file exists
   if(pStat.isFile(url.path) === true)
   {
-    //Get the mime type
-    if(typeof server._mime[url.ext] === 'undefined')
-    {
-      //Set the default mime value
-      var mime = 'text/plain';
-    }
-    else
-    {
-      //Get the mime type for the file
-      var mime = server._mime[url.ext];
-    }
+    //Get the mime
+    var mime = getMime(url.ext);
 
     //Write header
   	res.writeHead(200, {"Content-Type": mime});
