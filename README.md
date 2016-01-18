@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/stattic.svg?style=flat-square)](https://www.npmjs.com/package/stattic)
 [![npm](https://img.shields.io/npm/dt/stattic.svg?style=flat-square)](https://www.npmjs.com/package/stattic)
-[![Dependency Status](https://david-dm.org/jmjuanes/stattic.svg?style=flat-square)](https://david-dm.org/jmjuanes/stattic)
+[![Dependency Status](https://david-dm.org/statticjs/stattic.svg?style=flat-square)](https://david-dm.org/statticjs/stattic)
 
 Ridiculous simple script for serving static files using `http` module.
 
