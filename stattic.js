@@ -56,7 +56,7 @@ server.run = function()
   }
 
   //Fix the stattic files folder
-  server._static = path.resolve(__dirname, server._static);
+  server._static = path.resolve(process.cwd(), server._static);
 
   //Initialize the server
   server._http = http.createServer(server._Server);
