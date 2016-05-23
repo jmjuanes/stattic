@@ -5,7 +5,7 @@
   "keywords": ["http", "assets", "server", "static", "files"],
   "author": "Josemi Juanes <josemijuanes@gmail.com>",
   "main": "./stattic.js",
-  "repository": { "type": "git", "url": "https://github.com/stattic/stattic.git" },
+  "repository": { "type": "git", "url": "https://github.com/statticjs/stattic.git" },
   "dependencies": { "stattic-parseurl": "0.1.0", "stattic-pstat": "0.1.0", "stattic-mime": "0.1.0" },
   "license": "MIT"
 }
