@@ -20,6 +20,9 @@ server._port = 5000;
 //Set the cors
 server._cors = true;
 
+//Set the index file
+server._index = 'index.html';
+
 //Set the server error 404 message
 server._error = '<h1>Not found...</h1>';
 
@@ -37,6 +40,9 @@ server.set = function(key, value)
 
   //Check for Cross Origin
   else if(key === 'cors'){ server._cors = value; }
+
+  //Check for index file
+  else if(key === 'index'){ server._index = value; }
 
   //Default
   else { console.warn('Stattic Error: Unknown key "' + key + '" used in set method.'); }
@@ -101,6 +107,13 @@ server._Server = function(req, res)
 
   //Parse the url
   url = parseUrl(url);
+
+  //Check the root file
+  if(url.file === '')
+  {
+    //Update the path
+    url.path = url.path + server._index;
+  }
 
   //Time for make the request
   var time = Date.now();
