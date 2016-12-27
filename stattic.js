@@ -111,8 +111,8 @@ server._Server = function(req, res)
   //Check the root file
   if(url.file === '')
   {
-    //Update the path
-    url.path = url.path + server._index;
+    //Update the url object
+    url = parseUrl(url.path + server._index);
   }
 
   //Time for make the request
