@@ -125,7 +125,7 @@ server._Server = function(req, res)
     var mime = getMime(url.ext);
 
     //Write header
-  	res.writeHead(200, {"Content-Type": mime});
+  	res.writeHead(200, { 'Content-Type': mime });
 
     //Get the file content
     var cont = fs.readFileSync(url.path);
@@ -136,7 +136,7 @@ server._Server = function(req, res)
   else
   {
     //Write header for the error page
-    res.writeHead(404, {"Content-Type": "text/html"});
+    res.writeHead(404, { 'Content-Type': 'text/html' });
 
     //Show the error message
     res.end(server._error);
