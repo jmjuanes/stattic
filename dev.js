@@ -1,8 +1,8 @@
 //Import stattic
-var stattic = require('./stattic.js');
+var stattic = require('./index.js');
 
 //Set the path
-stattic.set('static', './');
+stattic.set('folder', './public/');
 
 //Set the port
 stattic.set('port', 5000);
@@ -11,4 +11,4 @@ stattic.set('port', 5000);
 stattic.set('index', 'index.html');
 
 //Run the server
-stattic.run();
+stattic.listen();
