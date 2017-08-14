@@ -55,6 +55,8 @@ Return the value associated with the key `key`.
 
 Starts the server.
 
+
+
 ## CLI usage
 
 You can install the CLI by running the following command: 
@@ -62,6 +64,33 @@ You can install the CLI by running the following command:
 ```
 npm install -g stattic
 ```
+
+Now you can navigate to a folder with your static files and initialize a static server: 
+
+```
+cd /path/to/your/static/content/
+stattic --port 5000 --cors
+```
+
+This will start a new static server in the port `5000` that will serve all files placed in the current folder.
+
+### Options 
+
+### --port PORT 
+
+Specify the port for your static server. Default is `5000`.
+
+### --folder FOLDER
+
+You can specify a different folder to serve the static files. Example 
+
+```
+stattic --port 5000 --folder /path/to/your/static/content/
+```
+
+### --cors 
+
+Use this option to enable cors.
 
 
 
