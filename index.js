@@ -5,7 +5,7 @@ var http = require('http');
 var url = require('url');
 var mime = require('mime');
 var utily = require('utily');
-var logty = require('logty');
+var colors = require('colors/safe');
 
 //Server options
 var options = { folder: process.cwd(), port: 5000, cors: true, index: 'index.html' };
@@ -83,14 +83,20 @@ module.exports.listen = function(port, cb)
     //Reponse finish event
     res.on('finish', function()
     {
-      //Get the total time in ms
-      var response_time = (Date.now() - time_start);
+      //Output message
+      var message = [];
 
-      //Get the response code
-      var response_code = res.statusCode;
+      //Add the response code
+      message[0] = (res.statusCode >= 300) ? colors.red(res.statusCode) : colors.green(res.statusCode);
+
+      //Add the response path
+      message[1] = colors.blue(pathname);
+
+      //Add the total time in ms
+      message[2] = colors.white((Date.now() - time_start) + ' ms');
 
       //Display the log message
-      console.log('' + response_code + ' ' + pathname + '  ' + response_time + ' ms');
+      console.log('' + message.join('  ') + '');
     });
 
     //Check if the file exists in this directory
