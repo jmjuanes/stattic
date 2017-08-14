@@ -74,13 +74,13 @@ stattic --port 5000 --cors
 
 This will start a new static server in the port `5000` that will serve all files placed in the current folder.
 
-### Options 
+### CLI options 
 
-### --port PORT 
+#### --port PORT 
 
 Specify the port for your static server. Default is `5000`.
 
-### --folder FOLDER
+#### --folder FOLDER
 
 You can specify a different folder to serve the static files. Example 
 
@@ -88,7 +88,7 @@ You can specify a different folder to serve the static files. Example
 stattic --port 5000 --folder /path/to/your/static/content/
 ```
 
-### --cors 
+#### --cors 
 
 Use this option to enable cors.
 
