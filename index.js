@@ -140,19 +140,19 @@ module.exports.listen = function(port, cb)
   //Start server
   server.listen(port, function()
   {
-    //Show the console log success
-    console.log('');
-    console.log('Welcome to Stattic');
-    console.log('');
-    console.log('Static server listening on: http://localhost:' + options.port);
-    console.log('Static files listening from: ' + options.folder);
-    console.log('');
-
     //Check if the callback method is a function
     if(typeof cb === 'function')
     {
       //Call the callback function
       cb.call(null);
+    }
+    else
+    {
+      //Show the console log success
+      console.log('');
+      console.log('Static server listening on: ' + colors.blue('http://localhost:' + options.port) + '');
+      console.log('Reading files from: ' + colors.blue(options.folder) + '');
+      console.log('');
     }
   });
 };
@@ -164,7 +164,7 @@ var error_page = function(res, error_code, error_message)
   res.writeHead(error_code, { 'Content-Type': 'text/html' });
 
   //Read the error file path
-  return fs.readFile(options.error, function(error, data)
+  return fs.readFile(options.error, 'utf8', function(error, data)
   {
     //Check the error
     if(error){ return res.end('<h1>Error</h1><p>' + error_message + '</p>'); }
