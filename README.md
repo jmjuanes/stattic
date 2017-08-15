@@ -94,6 +94,6 @@ Use this option to enable cors.
 
 
 
-## Contribute
+## License
 
-Pull requests are always welcome :)
+[MIT LICENSE](./LICENSE) &copy; Josemi Juanes.
