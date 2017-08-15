@@ -1,6 +1,6 @@
 {
   "name": "stattic",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Ridiculous simple script for serving static files.",
   "keywords": [ "http", "assets", "server", "static", "files" ],
   "author": "Josemi Juanes <josemijuanes@gmail.com>",
