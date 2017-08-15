@@ -103,10 +103,10 @@ module.exports.listen = function(port, cb)
     return utily.fs.isFile(local_path, function(error, exists)
     {
       //Check the error
-      if(error){ return error_page(res, 500, 'Error'); }
+      if(error){ return error_page(res, 500, 'Error processing your request.'); }
 
       //Check if file does not exists
-      if(exists === false){ return error_page(res, 404, 'Not found'); }
+      if(exists === false){ return error_page(res, 404, 'File not found.'); }
 
       //Write the header with the content type
       res.writeHead(200, { 'Content-Type': mime.lookup(local_path) });
