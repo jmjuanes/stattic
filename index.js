@@ -8,7 +8,7 @@ var utily = require('utily');
 var colors = require('colors/safe');
 
 //Server options
-var options = { folder: process.cwd(), port: 5000, cors: true, index: 'index.html' };
+var options = { folder: process.cwd(), port: 5000, cors: false, index: 'index.html' };
 
 //Get the default error file path
 options.error = path.resolve(__dirname, './assets/error.html');
