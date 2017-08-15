@@ -44,7 +44,7 @@ Use this method for set the settings of your server. The following table lists t
 |-----|-------------|------|---------------|
 | folder | Sets the path of your static files folder. | String | [`process.cwd()`](https://nodejs.org/api/process.html#process_process_cwd) |
 | port | Sets the port of your server. | Integer | `5000` |
-| cors | Enable cross-origin resource sharing (CORS). | Boolean | `true` |
+| cors | Enable cross-origin resource sharing (CORS). | Boolean | `false` |
 | index | Sets the index file name. | String | `index.html` |
 
 #### stattic.get(key)
