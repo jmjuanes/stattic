@@ -112,7 +112,9 @@ module.exports.listen = function(port, cb)
       res.writeHead(200, { 'Content-Type': mime.lookup(local_path) });
 
       //Initialize the reader stream
-      var reader = fs.createReadStream(local_path, { encoding: 'utf8' });
+      //var reader = fs.createReadStream(local_path, { encoding: 'utf8' });
+      //Remove encoding -> fixed bug reading images (jpg, png, etc...)
+      var reader = fs.createReadStream(local_path);
 
       //Reader data
       reader.on('data', function(data)
