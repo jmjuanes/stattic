@@ -109,7 +109,7 @@ module.exports.listen = function(port, cb)
       if(exists === false){ return error_page(res, 404, 'File not found.'); }
 
       //Write the header with the content type
-      res.writeHead(200, { 'Content-Type': mime.lookup(local_path) });
+      res.writeHead(200, { 'Content-Type': mime.getType(local_path) });
 
       //Initialize the reader stream
       //var reader = fs.createReadStream(local_path, { encoding: 'utf8' });
