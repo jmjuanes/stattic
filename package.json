@@ -1,8 +1,14 @@
 {
   "name": "stattic",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Ridiculous simple script for serving static files.",
-  "keywords": [ "http", "assets", "server", "static", "files" ],
+  "keywords": [
+    "http",
+    "assets",
+    "server",
+    "static",
+    "files"
+  ],
   "author": "Josemi Juanes <josemijuanes@gmail.com>",
   "main": "./stattic.js",
   "repository":
