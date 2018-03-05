@@ -1,45 +1,27 @@
-//Import dependencies
-var stattic = require('./index.js');
-var nutty = require('nutty');
-var path = require('path');
+let stattic = require("./index.js");
+let getArgs = require("get-args");
+let path = require("path");
 
-//Import package configuration
-var pkg = require('./package.json');
+process.nextTick(function(){
+    let args = getArgs();
+    let folder = process.cwd();
 
-//Register the nutty application
-nutty.set('name', 'stattic');
-nutty.set('description', '');
-nutty.set('version', pkg.version);
+    //Check the folder value
+    if (typeof args.options.folder === "string" && args.options.folder !== "") {
+        folder = path.resolve(process.cwd(), args.options.folder);
+    }
+    stattic.set("folder", folder);
 
-//Main
-nutty.use(function(args)
-{
-  //Initialize the folder path
-  var folder = process.cwd();
+    //Set the cors
+    if (typeof args.options.cors === "boolean") {
+        stattic.set("cors", true);
+    }
 
-  //Check the folder value
-  if(typeof args.options.folder === 'string' && args.options.folder !== '')
-  {
-    //Add the folder value
-    folder = path.resolve(process.cwd(), args.options.folder);
-  }
+    //Set the port
+    if (typeof args.options.port === "string" && args.options.port !== "") {
+        stattic.set("port", parseInt(args.options.port));
+    }
 
-  //Save the folder value
-  stattic.set('folder', folder);
-
-  //Check the cors
-  if(typeof args.options.cors === 'boolean'){ stattic.set('cors', true); }
-
-  //Set the port
-  if(typeof args.options.port === 'string' && args.options.port !== '')
-  {
-    //Save the port value
-    stattic.set('port', parseInt(args.options.port));
-  }
-
-  //Run the web server
-  stattic.listen();
+    //Run the web server
+    stattic.listen();
 });
-
-//Run nutty
-nutty.run();
