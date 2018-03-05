@@ -3,7 +3,6 @@ let path = require("path");
 let http = require("http");
 let url = require("url");
 let mime = require("mime");
-let utily = require("utily");
 
 //Server options
 let options = {folder: process.cwd(), port: 5000, cors: false, index: "index.html"};
@@ -62,32 +61,26 @@ module.exports.listen = function (port, cb) {
             console.log("" + res.statusCode + "  " + pathname + "  " + (Date.now() - timeStart) + " ms");
         });
 
-        //Check if the file exists in this directory
-        return utily.fs.isFile(localPath, function (error, exists) {
-            if (error) {
-                return errorPage(res, 500, "Error processing your request.");
-            }
-            if (exists === false) {
-                return errorPage(res, 404, "File not found.");
-            }
+        //Write the header with the content type
+        res.writeHead(200, {"Content-Type": mime.getType(localPath)});
 
-            //Write the header with the content type
-            res.writeHead(200, {"Content-Type": mime.getType(localPath)});
-
-            //Initialize the reader stream
-            //let reader = fs.createReadStream(local_path, { encoding: "utf8" });
-            //Remove encoding -> fixed bug reading images (jpg, png, etc...)
-            let reader = fs.createReadStream(localPath);
-            reader.on("data", function (data) {
-                //Write the data to the response
-                res.write(data);
-            });
-            reader.on("end", function () {
-                res.end("");
-            });
-            reader.on("error", function (error) {
-                return errorPage(res, 500, "Something went wrong...");
-            })
+        //Initialize the reader stream
+        //let reader = fs.createReadStream(local_path, { encoding: "utf8" });
+        //Remove encoding -> fixed bug reading images (jpg, png, etc...)
+        let reader = fs.createReadStream(localPath);
+        reader.on("data", function (data) {
+            //Write the data to the response
+            res.write(data);
+        });
+        reader.on("end", function () {
+            res.end("");
+        });
+        reader.on("error", function (error) {
+            //Check for file not found
+            if(error.code === "ENOENT") {
+                return errorPage(res, 404, "File not found on the server.");
+            }
+            return errorPage(res, 500, "Something went wrong...");
         });
     });
 
@@ -110,12 +103,21 @@ module.exports.listen = function (port, cb) {
 let errorPage = function (res, errorCode, errorMessage) {
     res.writeHead(errorCode, {"Content-Type": "text/html"});
     //Read the local error file
-    return fs.readFile(options.error, "utf8", function (error, data) {
+    return fs.readFile(options.error, "utf8", function (error, content) {
         //Check the error
         if (error) {
             return res.end("<" + "h1>Error</h1><p>" + errorMessage + "</p>");
         }
-        data = utily.string.format(data, {code: errorCode, message: errorMessage});
-        return res.end(data);
+        let data = {code: errorCode, message: errorMessage};
+        content = content.replace(/{{([^{}]+)}}/g, function(match, found)
+        {
+            found = found.trim();
+            if(typeof data[found] !== "undefined") {
+                return data[found].toString();
+            } else {
+                return match;
+            }
+        });
+        return res.end(content);
     });
 };
