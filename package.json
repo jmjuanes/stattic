@@ -16,8 +16,7 @@
     "url": "https://github.com/jmjuanes/stattic.git"
   },
   "dependencies": {
-    "utily": "^0.2.0",
-    "nutty": "^0.2.3",
+    "get-args": "^2.0.0",
     "mime": "^2.0.3"
   },
   "license": "MIT",
