@@ -50,6 +50,7 @@ module.exports.listen = function (port, cb) {
             res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type");
         }
         let pathname = url.parse(req.url).pathname;
+        pathname = path.normalize(pathname); //Fix path traversal
         let localPath = path.join(options.folder, pathname);
         if (path.extname(localPath) === "") {
             //Add the index file to the local path
