@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 let stattic = require("./index.js");
 let getArgs = require("get-args");
 let path = require("path");
