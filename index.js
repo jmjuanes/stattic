@@ -61,26 +61,36 @@ module.exports.listen = function (port, cb) {
             console.log("" + res.statusCode + "  " + pathname + "  " + (Date.now() - timeStart) + " ms");
         });
 
-        //Write the header with the content type
-        res.writeHead(200, {"Content-Type": mime.getType(localPath)});
-
-        //Initialize the reader stream
-        //let reader = fs.createReadStream(local_path, { encoding: "utf8" });
-        //Remove encoding -> fixed bug reading images (jpg, png, etc...)
-        let reader = fs.createReadStream(localPath);
-        reader.on("data", function (data) {
-            //Write the data to the response
-            res.write(data);
-        });
-        reader.on("end", function () {
-            res.end("");
-        });
-        reader.on("error", function (error) {
-            //Check for file not found
-            if(error.code === "ENOENT") {
-                return errorPage(res, 404, "File not found on the server.");
+        //Check if file exists 
+        return fs.stat(localPath, function (error, stat) {
+            if (error) {
+                if (error.code === "ENOENT") {
+                    return errorPage(res, 404, "File not found");
+                }
+                return errorPage(res, 500, "Internal server error");
             }
-            return errorPage(res, 500, "Something went wrong...");
+            if (stat.isFile() === false) {
+                return errorPage(res, 404, "File not found"); 
+            }
+
+            //Write the header with the content type
+            res.writeHead(200, {"Content-Type": mime.getType(localPath)});
+
+            //Initialize the reader stream
+            //let reader = fs.createReadStream(local_path, { encoding: "utf8" });
+            //Remove encoding -> fixed bug reading images (jpg, png, etc...)
+            let reader = fs.createReadStream(localPath);
+            reader.on("data", function (data) {
+                //Write the data to the response
+                res.write(data);
+            });
+            reader.on("end", function () {
+                res.end("");
+            });
+            reader.on("error", function (error) {
+                //Unknown error...
+                return errorPage(res, 500, "Something went wrong...");
+            });
         });
     });
 
@@ -110,14 +120,14 @@ let errorPage = function (res, errorCode, errorMessage) {
         }
         let data = {code: errorCode, message: errorMessage};
         content = content.replace(/{{([^{}]+)}}/g, function(match, found)
-        {
-            found = found.trim();
-            if(typeof data[found] !== "undefined") {
-                return data[found].toString();
-            } else {
-                return match;
-            }
-        });
+            {
+                found = found.trim();
+                if(typeof data[found] !== "undefined") {
+                    return data[found].toString();
+                } else {
+                    return match;
+                }
+            });
         return res.end(content);
     });
 };
