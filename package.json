@@ -1,6 +1,6 @@
 {
   "name": "stattic",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Ridiculous simple script for serving static files.",
   "keywords": [
     "http",
