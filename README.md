@@ -21,24 +21,21 @@ npm install stattic --save
 Example of a very simple server that shows all the static files on the `public` folder:
 
 ```javascript
-//Import libs
-var stattic = require('stattic');
+//Import stattic
+let stattic = require("stattic");
 
-//Set the folder with the static files
-stattic.set('folder', './public');
-
-//Set the port
-stattic.set('port', 5000);
-
-//Run the server
-stattic.listen();
+//Run the web server
+stattic({
+    "folder": "./public",
+    "port": 5000
+});
 ```
 
 ## API
 
-#### stattic.set(key, value)
+#### stattic(options)
 
-Use this method for set the settings of your server. The following table lists the available `key` settings:
+Starts a new server with the configuration specified in the `options` object. The following table lists the available options:
 
 | key | Description | Type | Default value |
 |-----|-------------|------|---------------|
@@ -46,15 +43,6 @@ Use this method for set the settings of your server. The following table lists t
 | port | Sets the port of your server. | Integer | `5000` |
 | cors | Enable cross-origin resource sharing (CORS). | Boolean | `false` |
 | index | Sets the index file name. | String | `index.html` |
-
-#### stattic.get(key)
-
-Return the value associated with the key `key`.
-
-#### stattic.listen()
-
-Starts the server.
-
 
 
 ## CLI usage
