@@ -1,29 +1,26 @@
 #!/usr/bin/env node
 
+//Import dependencies
 let stattic = require("./index.js");
 let getArgs = require("get-args");
 let path = require("path");
 
 process.nextTick(function(){
     let args = getArgs();
-    let folder = process.cwd();
-
-    //Check the folder value
+    let options = {};
+    //Check the folder option
     if (typeof args.options.folder === "string" && args.options.folder !== "") {
-        folder = path.resolve(process.cwd(), args.options.folder);
+        options.folder = path.resolve(process.cwd(), args.options.folder);
     }
-    stattic.set("folder", folder);
-
-    //Set the cors
+    //Check the cors option
     if (typeof args.options.cors === "boolean") {
-        stattic.set("cors", true);
+        options.cors = true;
     }
-
-    //Set the port
+    //Check the port options
     if (typeof args.options.port === "string" && args.options.port !== "") {
-        stattic.set("port", parseInt(args.options.port));
+        options.port = parseInt(args.options.port);
     }
-
-    //Run the web server
-    stattic.listen();
+    //Run the web server with the provided options
+    stattic(options);
 });
+
