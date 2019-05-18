@@ -39,7 +39,7 @@ Starts a new server with the configuration specified in the `options` object. Th
 
 | key | Description | Type | Default value |
 |-----|-------------|------|---------------|
-| folder | Sets the path of your static files folder. | String | [`process.cwd()`](https://nodejs.org/api/process.html#process_process_cwd) |
+| folder | Sets the path of your static files folder. | String | `./` |
 | port | Sets the port of your server. | Integer | `5000` |
 | cors | Enable cross-origin resource sharing (CORS). | Boolean | `false` |
 | index | Sets the index file name. | String | `index.html` |
