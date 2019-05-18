@@ -1,26 +1,26 @@
 {
-  "name": "stattic",
-  "version": "0.3.2",
-  "description": "Ridiculous simple script for serving static files.",
-  "keywords": [
-    "http",
-    "assets",
-    "server",
-    "static",
-    "files"
-  ],
-  "author": "Josemi Juanes <josemijuanes@gmail.com>",
-  "main": "./stattic.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jmjuanes/stattic.git"
-  },
-  "dependencies": {
-    "get-args": "^2.0.0",
-    "mime": "^2.0.3"
-  },
-  "license": "MIT",
-  "bin": {
-    "stattic": "./cli.js"
-  }
+    "name": "stattic",
+    "version": "0.3.2",
+    "description": "Ridiculous simple script for serving static files.",
+    "keywords": [
+        "http",
+        "assets",
+        "server",
+        "static",
+        "files"
+    ],
+    "author": "Josemi Juanes <josemijuanes@gmail.com>",
+    "main": "./stattic.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jmjuanes/stattic.git"
+    },
+    "dependencies": {
+        "get-args": "^2.0.0",
+        "mime": "^2.4.2"
+    },
+    "license": "MIT",
+    "bin": {
+        "stattic": "./cli.js"
+    }
 }
